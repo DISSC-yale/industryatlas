@@ -70,7 +70,13 @@ export default function Map({
         chart.setOption(
           {
             backgroundColor: colors.bg,
-            title: {text: `${sectorLabel} employment in ${view.year}`},
+            title: {
+              text: `${sectorLabel} employment in ${view.year}`,
+              textStyle: {
+                textBorderColor: colors.bg,
+                textBorderWidth: 2,
+              },
+            },
             tooltip: {
               trigger: 'item',
               textStyle: {
@@ -102,9 +108,20 @@ export default function Map({
             visualMap: {
               name: 'Employed',
               calculable: true,
-              max: quantile(0.5, selection) * 2,
+              max: quantile(0.07, selection),
               inRange: {
-                color: ['#7E1700', '#C8E9B6', '#1549A2'],
+                color: [
+                  '#051E3A',
+                  '#073D6C',
+                  '#185D8D',
+                  '#29738D',
+                  '#388284',
+                  '#49917A',
+                  '#5EA56F',
+                  '#86C168',
+                  '#C3DD91',
+                  '#EEEEC5',
+                ],
               },
             },
             series: [
@@ -116,6 +133,9 @@ export default function Map({
                 data: selection,
                 zoom: roamSettings.zoom,
                 center: roamSettings.center,
+                itemStyle: {
+                  areaColor: '#8f8f8f',
+                },
               },
             ],
             toolbox: {

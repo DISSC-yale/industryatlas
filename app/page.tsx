@@ -7,7 +7,9 @@ import {Data} from './parts/data'
 const theme = createTheme({
   colorSchemes: {
     dark: {palette: {mode: 'dark', primary: {main: '#a5cdff'}, secondary: {main: '#68abff'}}},
-    light: {palette: {mode: 'light', primary: {main: '#00356b'}, secondary: {main: '#286dc0'}}},
+    light: {
+      palette: {mode: 'light', primary: {main: '#00356b'}, secondary: {main: '#286dc0'}, warning: {main: '#b75f00'}},
+    },
   },
 })
 
