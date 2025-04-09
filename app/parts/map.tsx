@@ -10,6 +10,7 @@ import {DATA_VERSION, type DataEntry, type ViewDef} from './data'
 import {sectorLabels} from '../labels'
 
 function quantile(p: number, x: DataEntry[]): number {
+  if (!x.length) return 0
   const a = p * (x.length - 1),
     ap = a % 1,
     bp = 1 - ap,
@@ -64,7 +65,7 @@ export default function Map({
   useEffect(() => {
     if (container.current) {
       const chart = getInstanceByDom(container.current)
-      if (chart && map) {
+      if (chart && map && selection.length) {
         const colors = mode === 'dark' ? {bg: '#121212', text: '#ffffff'} : {bg: '#ffffff', text: '#000000'}
         chart.setOption(
           {
