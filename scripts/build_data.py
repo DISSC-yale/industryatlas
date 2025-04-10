@@ -60,12 +60,17 @@ if __name__ == "__main__":
                     {
                         "sector": data.index.to_list(),
                         **{
-                            sector: data[sector].round(6).to_list()
+                            sector: data[sector]
+                            .round()
+                            .fillna(-1)
+                            .astype(int)
+                            .to_list()
                             for sector in data.columns
+                            if sector != "year"
                         },
                     },
                     separators=(",", ":"),
-                ).replace("NaN", "null")
+                ).replace("-1", "null")
             )
 
     ## save by sector files
@@ -76,13 +81,17 @@ if __name__ == "__main__":
                     {
                         "year": data.index.to_list(),
                         **{
-                            county: data[county].round(6).to_list()
+                            county: data[county]
+                            .round()
+                            .fillna(-1)
+                            .astype(int)
+                            .to_list()
                             for county in data.columns
                             if county != "sector"
                         },
                     },
                     separators=(",", ":"),
-                ).replace("NaN", "null")
+                ).replace("-1", "null")
             )
 
     # map

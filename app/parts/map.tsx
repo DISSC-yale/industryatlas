@@ -71,7 +71,7 @@ export default function Map({
           {
             backgroundColor: colors.bg,
             title: {
-              text: `${sectorLabel} employment in ${view.year}`,
+              text: `${sectorLabel} Employment in ${view.year}`,
               textStyle: {
                 textBorderColor: colors.bg,
                 textBorderWidth: 2,
@@ -106,7 +106,6 @@ export default function Map({
               },
             },
             visualMap: {
-              name: 'Employed',
               calculable: true,
               max: quantile(0.07, selection),
               inRange: {
@@ -123,6 +122,7 @@ export default function Map({
                   '#EEEEC5',
                 ],
               },
+              right: 0,
             },
             series: [
               {

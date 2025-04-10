@@ -22,6 +22,8 @@ import {GeoJSON} from 'echarts/types/src/coord/geo/geoTypes.js'
 import {Export} from './export'
 import {sectorLabels} from '../labels'
 import {DataGrid} from '@mui/x-data-grid'
+import CountyPlot from './plot_county'
+import SectorPlot from './plot_sector'
 
 export const DATA_VERSION = '2025-04'
 const MIN_YEAR = 1975
@@ -55,7 +57,7 @@ export type DataEntry = {
   index: number
   sectors: {label: string; value: number}[]
 }
-function byValue(a: {value: number}, b: {value: number}) {
+export function byValue(a: {value: number}, b: {value: number}) {
   return b.value - a.value
 }
 
@@ -308,6 +310,10 @@ export function Data() {
           >
             <Stack sx={{height: '100%'}}>
               <Map view={view} selection={selection} map={map} />
+              <Stack sx={{height: '40%'}} direction="row">
+                <CountyPlot view={view} selection={selection} data={dataBySector} />
+                <SectorPlot view={view} data={dataByYear} />
+              </Stack>
             </Stack>
           </Box>
         </Stack>
