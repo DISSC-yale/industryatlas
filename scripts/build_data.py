@@ -1,5 +1,6 @@
 """Import and reformat data from the original source."""
 
+import gzip
 from json import dumps
 from os import makedirs
 from os.path import isfile
@@ -54,7 +55,7 @@ if __name__ == "__main__":
 
     ## save by year files
     for year, data in aggregated.reset_index().set_index("sector").groupby("year"):
-        with open(f"{outdir}by_year/{year}.json", "w", encoding="utf-8") as file:
+        with gzip.open(f"{outdir}by_year/{year}.json.gz", "wb") as file:
             file.write(
                 dumps(
                     {
@@ -70,12 +71,14 @@ if __name__ == "__main__":
                         },
                     },
                     separators=(",", ":"),
-                ).replace("-1", "null")
+                )
+                .replace("-1", "null")
+                .encode()
             )
 
     ## save by sector files
     for sector, data in aggregated.reset_index().set_index("year").groupby("sector"):
-        with open(f"{outdir}by_sector/{sector}.json", "w", encoding="utf-8") as file:
+        with gzip.open(f"{outdir}by_sector/{sector}.json.gz", "wb") as file:
             file.write(
                 dumps(
                     {
@@ -91,7 +94,9 @@ if __name__ == "__main__":
                         },
                     },
                     separators=(",", ":"),
-                ).replace("-1", "null")
+                )
+                .replace("-1", "null")
+                .encode()
             )
 
     # map

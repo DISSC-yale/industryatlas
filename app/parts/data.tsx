@@ -161,8 +161,11 @@ export function Data() {
       if (view.year in dataCache.by_year) {
         setDataByYear(dataCache.by_year[view.year])
       } else {
-        fetch(PREFIX + 'data/by_year/' + view.year + '.json').then(async res => {
-          dataCache.by_year[view.year] = await res.json()
+        fetch(PREFIX + 'data/by_year/' + view.year + '.json.gz').then(async res => {
+          const blob = await res.blob()
+          dataCache.by_year[view.year] = await new Response(
+            await blob.stream().pipeThrough(new DecompressionStream('gzip'))
+          ).json()
           setDataByYear(dataCache.by_year[view.year])
         })
       }
@@ -172,8 +175,11 @@ export function Data() {
     if (view.sector in dataCache.by_sector) {
       setDataBySector(dataCache.by_sector[view.sector])
     } else {
-      fetch(PREFIX + 'data/by_sector/' + view.sector + '.json').then(async res => {
-        dataCache.by_sector[view.sector] = await res.json()
+      fetch(PREFIX + 'data/by_sector/' + view.sector + '.json.gz').then(async res => {
+        const blob = await res.blob()
+        dataCache.by_sector[view.sector] = await new Response(
+          await blob.stream().pipeThrough(new DecompressionStream('gzip'))
+        ).json()
         setDataBySector(dataCache.by_sector[view.sector])
       })
     }
