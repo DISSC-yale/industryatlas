@@ -76,7 +76,7 @@ export default function SectorPlot({view, data}: {view: ViewDef; data: DataByYea
                 return `<div>(${name}) ${label}<br>${marker}<strong>${value}</strong></div>`
               },
             },
-            grid: {top: 40, right: 30, bottom: 70, left: 70},
+            grid: {top: 40, right: 30, bottom: 90, left: 70},
             xAxis: {
               type: 'category',
               data: ordered.map(e => e.name),

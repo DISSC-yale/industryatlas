@@ -88,7 +88,7 @@ export default function CountyPlot({
               right: 0,
               orient: 'horizontal',
             },
-            grid: {top: 40, right: 30, bottom: 70, left: 70},
+            grid: {top: 40, right: 30, bottom: 90, left: 70},
             xAxis: {type: 'category', data: data.year},
             yAxis: {type: 'value'},
             series: selectCounties.map(e => {
