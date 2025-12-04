@@ -46,7 +46,7 @@ export default function CountyPlot({
   useEffect(() => {
     if (container.current) {
       const chart = getInstanceByDom(container.current)
-      if (chart && data.year.length) {
+      if (chart && selection.length) {
         const colors = mode === 'dark' ? {bg: '#121212', text: '#ffffff'} : {bg: '#ffffff', text: '#000000'}
         const selectCounties = selection.filter((e, i) => e.label !== 'year' && i < N_COUNTIES + 1)
         chart.setOption(
@@ -70,7 +70,7 @@ export default function CountyPlot({
             },
             visualMap: {
               calculable: true,
-              max: Math.max(...selectCounties.map(e => e.value)),
+              max: Math.max(...selectCounties.map(e => e.value)) || 0,
               inRange: {
                 color: [
                   '#051E3A',
