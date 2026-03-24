@@ -1,9 +1,9 @@
 1:"$Sreact.fragment"
-2:I[47257,["/industryatlas/_next/static/chunks/ff1a16fafef87110.js","/industryatlas/_next/static/chunks/d2be314c3ece3fbe.js"],"ClientPageRoot"]
-3:I[31713,["/industryatlas/_next/static/chunks/ff1a16fafef87110.js","/industryatlas/_next/static/chunks/caf8e93de4bc48eb.js"],"default"]
-6:I[97367,["/industryatlas/_next/static/chunks/ff1a16fafef87110.js","/industryatlas/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+2:I[47257,["/industryatlas/_next/static/chunks/01xlw8hd842-c.js","/industryatlas/_next/static/chunks/0d3shmwh5_nmn.js"],"ClientPageRoot"]
+3:I[31713,["/industryatlas/_next/static/chunks/01xlw8hd842-c.js","/industryatlas/_next/static/chunks/0d3shmwh5_nmn.js","/industryatlas/_next/static/chunks/0lm_kfjcz8wwo.js"],"default"]
+6:I[97367,["/industryatlas/_next/static/chunks/01xlw8hd842-c.js","/industryatlas/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"buildId":"ypqT3ROaK347-Dj6qrVQS","rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/industryatlas/_next/static/chunks/ff1a16fafef87110.js","async":true}],["$","script","script-1",{"src":"/industryatlas/_next/static/chunks/caf8e93de4bc48eb.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/industryatlas/_next/static/chunks/0lm_kfjcz8wwo.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"T6NCz-_VkccL6mlgj8ymq"}
 4:{}
 5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
 8:null
