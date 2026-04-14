@@ -164,7 +164,7 @@ export function Data() {
         fetch(PREFIX + 'data/by_year/' + view.year + '.json.gz').then(async res => {
           const blob = await res.blob()
           dataCache.by_year[view.year] = await new Response(
-            await blob.stream().pipeThrough(new DecompressionStream('gzip'))
+            await blob.stream().pipeThrough(new DecompressionStream('gzip')),
           ).json()
           setDataByYear(dataCache.by_year[view.year])
         })
@@ -178,7 +178,7 @@ export function Data() {
       fetch(PREFIX + 'data/by_sector/' + view.sector + '.json.gz').then(async res => {
         const blob = await res.blob()
         dataCache.by_sector[view.sector] = await new Response(
-          await blob.stream().pipeThrough(new DecompressionStream('gzip'))
+          await blob.stream().pipeThrough(new DecompressionStream('gzip')),
         ).json()
         setDataBySector(dataCache.by_sector[view.sector])
       })
@@ -196,141 +196,141 @@ export function Data() {
     return [Math.min(...dataBySector.year), Math.max(...dataBySector.year)]
   }, [dataBySector.year])
   const isDark = mode === 'dark'
-  return map ? (
-    <Box sx={{position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, overflow: 'hidden'}}>
-      <Stack direction="row" sx={{height: '100%'}}>
-        <Card
-          sx={{
-            width: MENU_WIDTH + 'px',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Public sx={{position: 'absolute', height: '2.7em', width: '2.7em', p: 1}} />
-          <CardHeader title="Industry Atlas" sx={{pl: 8, '& .MuiCardHeader-title': {fontFamily: 'monospace'}}} />
-          <CardContent sx={{height: '100%', overflow: 'hidden'}}>
-            <Stack spacing={2} sx={{height: '100%'}}>
-              <Stack direction="row">
-                <IconButton
-                  onClick={() => updateView({key: 'year', value: yearRange[0]})}
-                  disabled={view.year === yearRange[0]}
-                  aria-label="jump to first year"
-                >
-                  <FirstPage />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    if (view.year > yearRange[0]) {
-                      updateView({key: 'year', value: view.year - 1})
-                    }
-                  }}
-                  disabled={view.year === yearRange[0]}
-                  aria-label="go to previous year"
-                >
-                  <ChevronLeft />
-                </IconButton>
-                <TextField
-                  sx={{mr: 1, ml: 1}}
-                  value={view.year}
-                  label="Year"
-                  onChange={e => updateView({key: 'year', value: +e.target.value})}
-                  size="small"
-                  type="number"
-                  slotProps={{htmlInput: {min: 1975, max: 2016, step: 1}}}
-                  fullWidth
-                >
-                  {view.year}
-                </TextField>
-                <IconButton
-                  onClick={() => {
-                    if (view.year < yearRange[1]) {
-                      updateView({key: 'year', value: view.year + 1})
-                    }
-                  }}
-                  disabled={view.year === yearRange[1]}
-                  aria-label="go to next year"
-                >
-                  <ChevronRight />
-                </IconButton>
-                <IconButton
-                  onClick={() => updateView({key: 'year', value: yearRange[1]})}
-                  disabled={view.year === yearRange[1]}
-                  aria-label="jump to first year"
-                >
-                  <LastPage />
-                </IconButton>
-              </Stack>
-              <Autocomplete
-                size="small"
-                fullWidth
-                options={sectorOptions}
-                value={sectorOptions.find(e => e.id === view.sector) || {id: '', label: ''}}
-                onChange={(_, value) => updateView({key: 'sector', value: value.id || defaultView.sector})}
-                renderInput={params => <TextField {...params} label="Sector" />}
-                disableClearable
-              />
-              <DataGrid
-                sx={{minHeight: '140px'}}
-                getRowId={r => r.name}
-                columns={[
-                  {field: 'label', headerName: 'County', width: MENU_WIDTH - 149},
-                  {field: 'value', headerName: 'Employed', width: 90, align: 'right'},
-                ]}
-                rows={selection}
-                pageSizeOptions={[50]}
-                initialState={{pagination: {paginationModel: {pageSize: 50}}}}
-                slotProps={{pagination: {ActionsComponent: pageActions}}}
-                density="compact"
-                disableRowSelectionOnClick
-                disableDensitySelector
-                disableColumnMenu
-              />
-            </Stack>
-          </CardContent>
-          <CardActions sx={{justifyContent: 'space-around'}}>
-            <IconButton
-              color="inherit"
-              onClick={() => setMode(isDark ? 'light' : 'dark')}
-              aria-label="toggle dark mode"
-            >
-              {isDark ? <LightMode /> : <DarkMode />}
-            </IconButton>
-            <Button variant="text" color="warning" onClick={() => setView(defaultView)}>
-              Reset
-            </Button>
-            <About />
-            <Export view={view} sectors={dataByYear.sector} selection={selection} />
-          </CardActions>
-        </Card>
-        <Stack>
-          <Box
+  return map ?
+      <Box sx={{position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, overflow: 'hidden'}}>
+        <Stack direction="row" sx={{height: '100%'}}>
+          <Card
             sx={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: MENU_WIDTH + 'px',
+              width: MENU_WIDTH + 'px',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
             }}
           >
-            <Stack sx={{height: '100%'}}>
-              <Map view={view} selection={selection} map={map} />
-              <Stack sx={{height: '40%'}} direction="row">
-                <CountyPlot view={view} selection={selection} data={dataBySector} />
-                <SectorPlot view={view} data={dataByYear} />
+            <Public sx={{position: 'absolute', height: '2.7em', width: '2.7em', p: 1}} />
+            <CardHeader title="Industry Atlas" sx={{pl: 8, '& .MuiCardHeader-title': {fontFamily: 'monospace'}}} />
+            <CardContent sx={{height: '100%', overflow: 'hidden'}}>
+              <Stack spacing={2} sx={{height: '100%'}}>
+                <Stack direction="row">
+                  <IconButton
+                    onClick={() => updateView({key: 'year', value: yearRange[0]})}
+                    disabled={view.year === yearRange[0]}
+                    aria-label="jump to first year"
+                  >
+                    <FirstPage />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      if (view.year > yearRange[0]) {
+                        updateView({key: 'year', value: view.year - 1})
+                      }
+                    }}
+                    disabled={view.year === yearRange[0]}
+                    aria-label="go to previous year"
+                  >
+                    <ChevronLeft />
+                  </IconButton>
+                  <TextField
+                    sx={{mr: 1, ml: 1}}
+                    value={view.year}
+                    label="Year"
+                    onChange={e => updateView({key: 'year', value: +e.target.value})}
+                    size="small"
+                    type="number"
+                    slotProps={{htmlInput: {min: 1975, max: 2016, step: 1}}}
+                    fullWidth
+                  >
+                    {view.year}
+                  </TextField>
+                  <IconButton
+                    onClick={() => {
+                      if (view.year < yearRange[1]) {
+                        updateView({key: 'year', value: view.year + 1})
+                      }
+                    }}
+                    disabled={view.year === yearRange[1]}
+                    aria-label="go to next year"
+                  >
+                    <ChevronRight />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => updateView({key: 'year', value: yearRange[1]})}
+                    disabled={view.year === yearRange[1]}
+                    aria-label="jump to first year"
+                  >
+                    <LastPage />
+                  </IconButton>
+                </Stack>
+                <Autocomplete
+                  size="small"
+                  fullWidth
+                  options={sectorOptions}
+                  value={sectorOptions.find(e => e.id === view.sector) || {id: '', label: ''}}
+                  onChange={(_, value) => updateView({key: 'sector', value: value.id || defaultView.sector})}
+                  renderInput={params => <TextField {...params} label="Sector" />}
+                  disableClearable
+                />
+                <DataGrid
+                  sx={{minHeight: '140px'}}
+                  getRowId={r => r.name}
+                  columns={[
+                    {field: 'label', headerName: 'County', width: MENU_WIDTH - 149},
+                    {field: 'value', headerName: 'Employed', width: 90, align: 'right'},
+                  ]}
+                  rows={selection}
+                  pageSizeOptions={[50]}
+                  initialState={{pagination: {paginationModel: {pageSize: 50}}}}
+                  slotProps={{pagination: {ActionsComponent: pageActions}}}
+                  density="compact"
+                  disableRowSelectionOnClick
+                  disableDensitySelector
+                  disableColumnMenu
+                />
               </Stack>
-            </Stack>
-          </Box>
+            </CardContent>
+            <CardActions sx={{justifyContent: 'space-around'}}>
+              <IconButton
+                color="inherit"
+                onClick={() => setMode(isDark ? 'light' : 'dark')}
+                aria-label="toggle dark mode"
+              >
+                {isDark ?
+                  <LightMode />
+                : <DarkMode />}
+              </IconButton>
+              <Button variant="text" color="warning" onClick={() => setView(defaultView)}>
+                Reset
+              </Button>
+              <About />
+              <Export view={view} sectors={dataByYear.sector} selection={selection} />
+            </CardActions>
+          </Card>
+          <Stack>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: MENU_WIDTH + 'px',
+              }}
+            >
+              <Stack sx={{height: '100%'}}>
+                <Map view={view} selection={selection} map={map} />
+                <Stack sx={{height: '40%'}} direction="row">
+                  <CountyPlot view={view} selection={selection} data={dataBySector} />
+                  <SectorPlot view={view} data={dataByYear} />
+                </Stack>
+              </Stack>
+            </Box>
+          </Stack>
         </Stack>
-      </Stack>
-    </Box>
-  ) : (
-    <Backdrop open={true}>
-      <Stack>
-        <CircularProgress sx={{m: 'auto'}} />
-        <Typography>Loading Map...</Typography>
-      </Stack>
-    </Backdrop>
-  )
+      </Box>
+    : <Backdrop open={true}>
+        <Stack>
+          <CircularProgress sx={{m: 'auto'}} />
+          <Typography>Loading Map...</Typography>
+        </Stack>
+      </Backdrop>
 }
